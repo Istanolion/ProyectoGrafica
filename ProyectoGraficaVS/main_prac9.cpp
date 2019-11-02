@@ -159,7 +159,7 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model extinguidor)
 {
 	shader.use();
 
@@ -179,17 +179,25 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa)
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
 	
-
+	//mesas
 	mesa.Draw(shader);
-
+	//monitores
 	model = glm::translate(tmp, glm::vec3(0.0f, 0.03f, -0.2f));
 	model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,1.0f,0.0f));
 	shader.setMat4("model", model);
 	monitor.Draw(shader);
-
+	//cpu modelo 1
 	model = glm::translate(tmp, glm::vec3(1.0f,0.44f,0.0f));
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
+	//cpu modelo 2
+	model = glm::translate(tmp, glm::vec3(-1.0f, 0.44f, 0.1f));
+	shader.setMat4("model", model);
+	cpu2.Draw(shader);
+	//Extinguidor
+	model = glm::translate(tmp, glm::vec3(-2.0f, 0.44f, 1.0f));
+	shader.setMat4("model", model);
+	extinguidor.Draw(shader);
 }
 
 int main()
@@ -241,6 +249,7 @@ int main()
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
+	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -264,7 +273,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader,cpu1,cpu2,monitor,mesa);
+		display(modelShader,cpu1,cpu2,monitor,mesa,extinguidor);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
