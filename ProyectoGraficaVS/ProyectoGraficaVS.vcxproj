@@ -99,7 +99,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;C:\Users\alonz\Documents\GitHub\ProyectoGrafica\ProyectoGraficaVS;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;assimp\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib;assimp/lib;SOIL2/lib</AdditionalLibraryDirectories>
