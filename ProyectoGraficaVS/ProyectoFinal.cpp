@@ -1,7 +1,5 @@
 /*---------------------------------------------------------*/
-/* ----------------   Práctica 9 --------------------------*/
-/*-----------------    2020-1   ---------------------------*/
-/*------------- Alumno:                     ---------------*/
+/*-----------------------Proyecto final-------------------- */
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
@@ -159,7 +157,11 @@ void animate(void)
 	
 }
 
+<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model extinguidor)
+=======
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera)
+>>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 {
 	shader.use();
 
@@ -178,7 +180,11 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
+
+	//Dibujo piso de madera
+	//pisomadera.Draw(shader);
 	
+<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
 	//mesas
 	mesa.Draw(shader);
 	//monitores
@@ -198,6 +204,154 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-2.0f, 0.44f, 1.0f));
 	shader.setMat4("model", model);
 	extinguidor.Draw(shader);
+=======
+	//Dibujo 1a mesa lado derecho
+	mesa.Draw(shader);
+	//Dibujo 1er monitor
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.03f, -0.1f));
+	model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,1.0f,0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-1.7f,0.44f,0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-0.3f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(0.45f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(1.1f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 4o equipo de computo
+	model = glm::translate(tmp, glm::vec3(1.9f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(2.6f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//dibujo 2a mesa lado derecho
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -3.0f));
+	shader.setMat4("model", model);
+	mesa.Draw(shader);
+	//Dibujo 1er monitor
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-1.7f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-0.3f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(0.45f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(1.1f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 4o equipo de computo
+	model = glm::translate(tmp, glm::vec3(1.9f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(2.6f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//dibujo 3a mesa lado derecho
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -6.0f));
+	shader.setMat4("model", model);
+	mesa.Draw(shader);
+	//Dibujo 1er monitor
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-1.7f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-0.3f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(0.45f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(1.1f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 4o equipo de computo
+	model = glm::translate(tmp, glm::vec3(1.9f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(2.6f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//dibujo 4a mesa lado derecho
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -9.0f));
+	shader.setMat4("model", model);
+	mesa.Draw(shader);
+	//Dibujo 1er monitor
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-1.7f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-0.3f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(0.45f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(1.1f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 4o equipo de computo
+	model = glm::translate(tmp, glm::vec3(1.9f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(2.6f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+>>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 }
 
 int main()
@@ -218,7 +372,7 @@ int main()
 	monitors = glfwGetPrimaryMonitor();
 	getResolution();
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Practica 10", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Proyecto Final", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -249,7 +403,11 @@ int main()
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
+<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
+=======
+	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
+>>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -273,7 +431,11 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
+<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
 		display(modelShader,cpu1,cpu2,monitor,mesa,extinguidor);
+=======
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera);
+>>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
