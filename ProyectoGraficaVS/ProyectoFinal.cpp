@@ -157,12 +157,13 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo)
 {
 	shader.use();
 
 	// create transformations and Projection
 	glm::mat4 tmp = glm::mat4(1.0f);
+	glm::mat4 flor = glm::mat4(1.0f);
 	glm::mat4 model = glm::mat4(1.0f);		// initialize Matrix, Use this matrix for individual models
 	glm::mat4 view = glm::mat4(1.0f);		//Use this matrix for ALL models
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
@@ -176,9 +177,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
-
-	//Dibujo piso de madera
-	//pisomadera.Draw(shader);
 	
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
@@ -326,6 +324,26 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
 
+	//Dibujo piso de madera
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, -2.0f, -5.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(15.0f, 15.0f, 1.0f));
+	shader.setMat4("model", model);
+	pisomadera.Draw(shader);
+
+	//Dibujo piso de metal
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-6.0f, -1.97f, -5.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(1.5f, 15.0f, 1.0f));
+	shader.setMat4("model", model);
+	pisometal.Draw(shader);
+
+	//Dibujo techo
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, 5.0f, -5.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(15.0f, 15.0f, 1.0f));
+	shader.setMat4("model", model);
+	techo.Draw(shader);
 }
 
 int main()
@@ -378,6 +396,8 @@ int main()
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
+	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
+	Model techo = ((char*)"Models/Techo/Techo.obj");
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -401,7 +421,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
