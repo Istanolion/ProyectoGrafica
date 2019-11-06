@@ -165,7 +165,7 @@ void animate(void)
 }
 
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera,Model extinguidor)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model extinguidor, Model mouse, Model silla)
 
 {
 	
@@ -202,6 +202,12 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-1.7f,0.44f,0.0f));
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
+	//----------------------
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -0.5f));
+	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
+	//------------
 	//Dibujo de 2do equipo de computo
 	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -0.1f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -352,7 +358,9 @@ int main()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
-
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
     // glfw window creation
     // --------------------
 	monitors = glfwGetPrimaryMonitor();
@@ -389,9 +397,9 @@ int main()
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
-
+	Model mouse = ((char*)"Models/Mouse/mouse.obj");
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
-
+	Model Silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
@@ -416,7 +424,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera,extinguidor);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera,extinguidor,mouse,Silla);
 
 
 
