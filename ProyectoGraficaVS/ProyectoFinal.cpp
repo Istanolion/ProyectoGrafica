@@ -10,6 +10,10 @@
 
 // Other Libs
 #include "SOIL2/SOIL2.h"
+#include <irrKlang.h>
+using namespace irrklang;
+
+ISoundEngine *SoundEngine = createIrrKlangDevice();
 
 void resize(GLFWwindow* window, int width, int height);
 void my_input(GLFWwindow *window);
@@ -64,6 +68,9 @@ unsigned int	t_smile,
 //For model
 bool animacion = false;
 float movKit_z = 0.0f;
+
+//Musica
+bool GandalfTime = false;
 
 
 unsigned int generateTextures(const char* filename, bool alfa)
@@ -157,8 +164,9 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor)
 {
+	
 	shader.use();
 
 	// create transformations and Projection
@@ -177,6 +185,8 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
+	
+
 	
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
@@ -395,6 +405,9 @@ int main()
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
+
+	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
+
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
 	Model techo = ((char*)"Models/Techo/Techo.obj");
@@ -421,7 +434,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor);
+
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -455,8 +470,13 @@ void my_input(GLFWwindow *window)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		animacion = true;
-	
-
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		GandalfTime = !GandalfTime;
+		if (GandalfTime)
+			SoundEngine->play2D("Musica/GandalfSax.mp3", GL_TRUE);
+		else
+			SoundEngine->stopAllSounds();
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
