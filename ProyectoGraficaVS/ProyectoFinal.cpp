@@ -164,7 +164,7 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado)
 {
 	
 	shader.use();
@@ -191,13 +191,23 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
 	//Dibujo 1er monitor
-	model = glm::translate(tmp, glm::vec3(-2.4f, 0.03f, -0.1f));
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.0f, -0.1f));
 	model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,1.0f,0.0f));
 	shader.setMat4("model", model);
 	monitor.Draw(shader);
 	model = glm::translate(tmp, glm::vec3(-1.7f,0.44f,0.0f));
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-2.4f, 0.2f, 0.4f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.75f, 0.7f, 1.0f));
+	shader.setMat4("model", model);
+	teclado.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-2.0f, 0.2f, 0.4f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setMat4("model", model);
+	mouse.Draw(shader);
 	//Dibujo de 2do equipo de computo
 	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -0.1f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -337,21 +347,137 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo piso de madera
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, -2.0f, -5.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(15.0f, 15.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(25.0f, 25.0f, 1.0f));
 	shader.setMat4("model", model);
 	pisomadera.Draw(shader);
+
+	//Dibujo 1a mesa lado izq
+	model = glm::translate(tmp, glm::vec3(-12.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	mesa3.Draw(shader);
+	//Dibujo 1er equipo computo
+	model = glm::translate(tmp, glm::vec3(-9.8f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-10.6f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu2.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-11.6f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-12.6f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(-13.6f, 0.03f, -0.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-14.6f, 0.44f, 0.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//Dibujo 2a mesa lado izq
+	model = glm::translate(tmp, glm::vec3(-12.0f, 0.0f, -3.0f));
+	shader.setMat4("model", model);
+	mesa3.Draw(shader);
+	//Dibujo 1er equipo computo
+	model = glm::translate(tmp, glm::vec3(-9.8f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-10.6f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu2.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-11.6f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-12.6f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(-13.6f, 0.03f, -3.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-14.6f, 0.44f, -3.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//Dibujo 3a mesa lado izq
+	model = glm::translate(tmp, glm::vec3(-12.0f, 0.0f, -6.0f));
+	shader.setMat4("model", model);
+	mesa3.Draw(shader);
+	//Dibujo 1er equipo computo
+	model = glm::translate(tmp, glm::vec3(-9.8f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-10.6f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu2.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-11.6f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-12.6f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(-13.6f, 0.03f, -6.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-14.6f, 0.44f, -6.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+
+	//Dibujo 2a mesa lado izq
+	model = glm::translate(tmp, glm::vec3(-12.0f, 0.0f, -9.0f));
+	shader.setMat4("model", model);
+	mesa3.Draw(shader);
+	//Dibujo 1er equipo computo
+	model = glm::translate(tmp, glm::vec3(-9.8f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-10.6f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu2.Draw(shader);
+	//Dibujo de 2do equipo de computo
+	model = glm::translate(tmp, glm::vec3(-11.6f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-12.6f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
+	//Dibujo de 3er equipo de computo
+	model = glm::translate(tmp, glm::vec3(-13.6f, 0.03f, -9.1f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	monitor.Draw(shader);
+	model = glm::translate(tmp, glm::vec3(-14.6f, 0.44f, -9.0f));
+	shader.setMat4("model", model);
+	cpu1.Draw(shader);
 
 	//Dibujo piso de metal
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-6.0f, -1.97f, -5.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.5f, 15.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(1.5f, 25.0f, 1.0f));
 	shader.setMat4("model", model);
 	pisometal.Draw(shader);
 
 	//Dibujo techo
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, 5.0f, -5.0f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(15.0f, 15.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(25.0f, 25.0f, 1.0f));
 	shader.setMat4("model", model);
 	techo.Draw(shader);
 }
@@ -402,9 +528,12 @@ int main()
 	Shader modelShader("Shaders/modelLoading.vs", "Shaders/modelLoading.fs");
 	// Load models
 	Model mesa = ((char*)"Models/Mesa/mesa.obj");
+	Model mesa3 = ((char*)"Models/Mesa/mesa3H.obj");
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
+	Model mouse = ((char*)"Models/Mouse/mouse.obj");
+	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
 
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
 
@@ -434,7 +563,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado);
 
 
 
