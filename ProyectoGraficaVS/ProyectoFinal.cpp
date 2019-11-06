@@ -164,7 +164,13 @@ void animate(void)
 	
 }
 
+<<<<<<< HEAD
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado)
+=======
+
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model extinguidor, Model mouse, Model silla)
+
+>>>>>>> Inaki
 {
 	
 	shader.use();
@@ -198,6 +204,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-1.7f,0.44f,0.0f));
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
+<<<<<<< HEAD
 	model = glm::translate(tmp, glm::vec3(-2.4f, 0.2f, 0.4f));
 	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.75f, 0.7f, 1.0f));
@@ -208,6 +215,14 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	mouse.Draw(shader);
+=======
+	//----------------------
+	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -0.5f));
+	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	silla.Draw(shader);
+	//------------
+>>>>>>> Inaki
 	//Dibujo de 2do equipo de computo
 	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -0.1f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -494,7 +509,9 @@ int main()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
-
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
     // glfw window creation
     // --------------------
 	monitors = glfwGetPrimaryMonitor();
@@ -533,10 +550,13 @@ int main()
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
 	Model mouse = ((char*)"Models/Mouse/mouse.obj");
+<<<<<<< HEAD
 	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
 
+=======
+>>>>>>> Inaki
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
-
+	Model Silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
 	Model techo = ((char*)"Models/Techo/Techo.obj");
@@ -563,7 +583,11 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
+<<<<<<< HEAD
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado);
+=======
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera,extinguidor,mouse,Silla);
+>>>>>>> Inaki
 
 
 
