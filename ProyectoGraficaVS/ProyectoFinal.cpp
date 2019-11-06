@@ -10,6 +10,10 @@
 
 // Other Libs
 #include "SOIL2/SOIL2.h"
+#include <irrKlang.h>
+using namespace irrklang;
+
+ISoundEngine *SoundEngine = createIrrKlangDevice();
 
 void resize(GLFWwindow* window, int width, int height);
 void my_input(GLFWwindow *window);
@@ -64,6 +68,9 @@ unsigned int	t_smile,
 //For model
 bool animacion = false;
 float movKit_z = 0.0f;
+
+//Musica
+bool GandalfTime = false;
 
 
 unsigned int generateTextures(const char* filename, bool alfa)
@@ -157,12 +164,11 @@ void animate(void)
 	
 }
 
-<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model extinguidor)
-=======
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera)
->>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
+
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera,Model extinguidor)
+
 {
+	
 	shader.use();
 
 	// create transformations and Projection
@@ -184,27 +190,8 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo piso de madera
 	//pisomadera.Draw(shader);
 	
-<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
-	//mesas
-	mesa.Draw(shader);
-	//monitores
-	model = glm::translate(tmp, glm::vec3(0.0f, 0.03f, -0.2f));
-	model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,1.0f,0.0f));
-	shader.setMat4("model", model);
-	monitor.Draw(shader);
-	//cpu modelo 1
-	model = glm::translate(tmp, glm::vec3(1.0f,0.44f,0.0f));
-	shader.setMat4("model", model);
-	cpu1.Draw(shader);
-	//cpu modelo 2
-	model = glm::translate(tmp, glm::vec3(-1.0f, 0.44f, 0.1f));
-	shader.setMat4("model", model);
-	cpu2.Draw(shader);
-	//Extinguidor
-	model = glm::translate(tmp, glm::vec3(-2.0f, 0.44f, 1.0f));
-	shader.setMat4("model", model);
-	extinguidor.Draw(shader);
-=======
+
+	
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
 	//Dibujo 1er monitor
@@ -351,7 +338,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
 
->>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 }
 
 int main()
@@ -403,11 +389,10 @@ int main()
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
-<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
+
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
-=======
+
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
->>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -431,11 +416,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-<<<<<<< HEAD:ProyectoGraficaVS/main_prac9.cpp
-		display(modelShader,cpu1,cpu2,monitor,mesa,extinguidor);
-=======
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera);
->>>>>>> master:ProyectoGraficaVS/ProyectoFinal.cpp
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera,extinguidor);
+
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -469,8 +452,13 @@ void my_input(GLFWwindow *window)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		animacion = true;
-	
-
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		GandalfTime = !GandalfTime;
+		if (GandalfTime)
+			SoundEngine->play2D("Musica/GandalfSax.mp3", GL_TRUE);
+		else
+			SoundEngine->stopAllSounds();
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
