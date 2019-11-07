@@ -67,6 +67,44 @@ float movKit_z = 0.0f;
 bool GandalfTime = false;
 
 
+float	posY = 0.0f,
+scaleX = 0.0f,
+scaleY = 0.0f,
+scaleZ = 0.0f;
+
+float	incpY = 0.0f,
+incsX = 0.0f,
+incsY = 0.0f,
+incsZ = 0.0f;
+
+
+#define MAX_FRAMES 9
+int i_max_steps = 90;
+int i_curr_steps = 0;
+
+typedef struct _frame
+{
+	//Variables para GUARDAR Key Frames
+	float scaleX;
+	float scaleY;
+	float scaleZ;
+	float posY;		//Variable para PosicionY
+
+}FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 0;			//introducir datos
+bool play = false;
+int playIndex = 0;
+
+void interpolation(void)
+{
+	incpY = (KeyFrame[playIndex + 1].posY - KeyFrame[playIndex].posY) / i_max_steps;
+	incsX = (KeyFrame[playIndex + 1].scaleX - KeyFrame[playIndex].scaleX) / i_max_steps;
+	incsY = (KeyFrame[playIndex + 1].scaleY - KeyFrame[playIndex].scaleY) / i_max_steps;
+	incsZ = (KeyFrame[playIndex + 1].scaleZ - KeyFrame[playIndex].scaleZ) / i_max_steps;
+}
+
 unsigned int generateTextures(const char* filename, bool alfa)
 {
 	unsigned int textureID;
@@ -235,7 +273,7 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, Model pizarron)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, Model pizarron,Model mesaProf)
 
 {
 	
@@ -258,23 +296,29 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
 
+	//Se dibuja el pizarron
 	model = glm::translate(tmp, glm::vec3(-6.0f, 2.0f, -16.9f));
 	shader.setMat4("model", model);
+	pizarron.Draw(shader);
 
+	// Se dibuja la mesa del profe
+	model = glm::translate(tmp, glm::vec3(-0.8f, 0.0f, -11.2f));
+	shader.setMat4("model", model);
+	mesaProf.Draw(shader);
 	//Textura Gandalf;
 	if (GandalfTime) {
 		glBindVertexArray(VAO);
 		glBindTexture(GL_TEXTURE_2D, GandalfTexture[i]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		if (i < 70) {
-			Sleep(50);
+			//Sleep(50);
 			i++;
 
 		}
 		else
 			i = 0;
 	}
-	pizarron.Draw(shader);
+	
 
 	model = glm::mat4(1.0f);
 	shader.setMat4("model", model);
@@ -1034,6 +1078,7 @@ int main()
 	// Load models
 	Model mesa = ((char*)"Models/Mesa/mesa.obj");
 	Model mesa3 = ((char*)"Models/Mesa/mesa3H.obj");
+	Model mesaProf= ((char*)"Models/Mesa/MesaProfe.obj");
 	Model cpu1 = ((char*)"Models/cpu1/CPU1.obj");
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
@@ -1070,7 +1115,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla,Pizarron);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla,Pizarron,mesaProf);
 
 
 
