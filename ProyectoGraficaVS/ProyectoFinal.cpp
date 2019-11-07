@@ -111,6 +111,51 @@ void interpolation(void)
 	incsZ = (KeyFrame[playIndex + 1].scaleZ - KeyFrame[playIndex].scaleZ) / i_max_steps;
 }
 
+void InitiateStruct() {
+	KeyFrame[0].posY = 0.0f;
+	KeyFrame[0].scaleX = 0.0f;
+	KeyFrame[0].scaleY = 0.0f;
+	KeyFrame[0].scaleZ = 0.0f;
+
+	KeyFrame[1].posY = 1.5f;
+	KeyFrame[1].scaleX = 0.5f;
+	KeyFrame[1].scaleY = 0.5f;
+	KeyFrame[1].scaleZ = -0.5f;
+
+	KeyFrame[2].posY = 3.0f;
+	KeyFrame[2].scaleX = 0.0f;
+	KeyFrame[2].scaleY = 0.0f;
+	KeyFrame[2].scaleZ = 0.0f;
+
+	KeyFrame[3].posY = 3.0f;
+	KeyFrame[3].scaleX = -0.5f;
+	KeyFrame[3].scaleY = -0.5f;
+	KeyFrame[3].scaleZ = 0.5f;
+
+	KeyFrame[4].posY = 3.0f;
+	KeyFrame[4].scaleX = 0.0f;
+	KeyFrame[4].scaleY = 0.0f;
+	KeyFrame[4].scaleZ = 0.0f;
+
+	KeyFrame[5].posY = 1.5f;
+	KeyFrame[5].scaleX = 0.5f;
+	KeyFrame[5].scaleY = 0.5f;
+	KeyFrame[5].scaleZ = -0.5f;
+
+	KeyFrame[6].posY = 0.0f;
+	KeyFrame[6].scaleX = 0.0f;
+	KeyFrame[6].scaleY = 0.0f;
+	KeyFrame[6].scaleZ = 0.0f;
+	FrameIndex = 5;
+}
+void resetElements(void)
+{
+	posY = KeyFrame[0].posY;
+	scaleX = KeyFrame[0].scaleX;
+	scaleY = KeyFrame[0].scaleY;
+	scaleZ = KeyFrame[0].scaleZ;
+
+}
 unsigned int generateTextures(const char* filename, bool alfa)
 {
 	unsigned int textureID;
@@ -276,21 +321,50 @@ void myData()
 
 void animate(void)
 {
+	if (play)
+	{
+		if (i_curr_steps >= i_max_steps) //end of animation between frames?
+		{
+			playIndex++;
+			if (playIndex > FrameIndex - 2)	//end of total animation?
+			{
+				printf("termina anim\n");
+				playIndex = 0;
+				play = false;
+			}
+			else //Next frame interpolations
+			{
+				i_curr_steps = 0; //Reset counter
+								  //Interpolation
+				interpolation();
+			}
+		}
+		else
+		{
+			//Draw animation
+			posY += incpY;
+			scaleX += incsX;
+			scaleY += incsY;
+			scaleZ += incsZ;
+			i_curr_steps++;
+		}
+
+	}
 	if (animacion) {
 		if (!avanzar && !giro && !salto && !baja) {
-			movKit_x += 0.05f;
+			movKit_x += 0.0425f;
 			if (movKit_x >= -10.0f)
 				giro = true;
 		}
 		else if (!avanzar && giro && !salto && !baja) {
-			movKit_x += 0.05f;
+			movKit_x += 0.0425f;
 			movGiro_y += 20.0f;
 			if (movGiro_y >= 420.0f && movKit_x >= -3.75f) 
 				salto = true;
 			
 		}
 		else if (!avanzar && giro && salto && !baja) {
-			movKit_x += 0.05f;
+			movKit_x += 0.0425f;
 			movKit_y += 0.05f;
 			if (movKit_y >= -1.5f ) {
 				baja = true;
@@ -298,7 +372,7 @@ void animate(void)
 			}
 		}
 		else if (!avanzar && giro && !salto && baja) {
-			movKit_x += 0.05f;
+			movKit_x += 0.0425f;
 			movKit_y -= 0.05f;
 			if (movKit_y <= -2.0f ) {
 				baja = false;
@@ -306,15 +380,16 @@ void animate(void)
 				saltos++;
 			}
 		}
-		if (saltos == 5)
+		if (saltos == 6) {
 			animacion = false;
-		
+			SoundEngine->stopAllSounds();
+		}
 	}
 	
 }
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf)
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf,Model soccer)
 
 
 {
@@ -337,6 +412,14 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
+	
+	//Keyframe Animation of Ball
+	model = glm::translate(tmp, glm::vec3(-10.0f, 3.0f - posY, 3.0f));
+	model = glm::scale(model, glm::vec3(1.0f + scaleX, 1.0f + scaleY, 1.0f + scaleZ));
+	shader.setMat4("model", model);
+	soccer.Draw(shader);
+
+	model = glm::mat4(1.0f);
 
 	//Se dibuja el pizarron
 	model = glm::translate(tmp, glm::vec3(-6.0f, 2.0f, -16.9f));
@@ -1124,9 +1207,10 @@ int main()
 	LoadTextures();
 	myData();
 	glEnable(GL_DEPTH_TEST);
-	
+	InitiateStruct();
 	Shader modelShader("Shaders/modelLoading.vs", "Shaders/modelLoading.fs");
 	// Load models
+	Model soccer = ((char*)"Models/Soccer/soccer.obj");
 	Model mesa = ((char*)"Models/Mesa/mesa.obj");
 	Model mesa3 = ((char*)"Models/Mesa/mesa3H.obj");
 	Model mesaProf= ((char*)"Models/Mesa/MesaProfe.obj");
@@ -1167,7 +1251,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf,soccer);
 
 
 
@@ -1203,20 +1287,30 @@ void my_input(GLFWwindow *window)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		animacion = true;
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		resetElements();
+		//First Interpolation				
+		interpolation();
+		play = true;
+		playIndex = 0;
+		i_curr_steps = 0;
+	}
+
 	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS and !GandalfTime) {
 		GandalfTime = true;
+		SoundEngine->stopAllSounds();
 		SoundEngine->play2D("Musica/GandalfSax.mp3", GL_TRUE);
 	}
 	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS and GandalfTime) {
 		SoundEngine->stopAllSounds();
 		GandalfTime = false;
 	}
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS and !animacion) {
 		animacion = true;
+		SoundEngine->play2D("Musica/Padoru.mp3", GL_TRUE);
 	}
 	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+		
 		movKit_x = -14.0f;
 		movGiro_y = 90.0f;
 		saltos = 0;
