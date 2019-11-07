@@ -61,7 +61,13 @@ int i = 0;
 
 //For model
 bool animacion = false;
-float movKit_z = 0.0f;
+bool avanzar = false;
+bool giro = false;
+bool salto = false;
+bool baja = false;
+float movKit_x = -14.0f;
+float movKit_y = -2.0f;
+float movGiro_y = 90.0f;
 
 //Musica
 bool GandalfTime = false;
@@ -81,7 +87,7 @@ incsZ = 0.0f;
 #define MAX_FRAMES 9
 int i_max_steps = 90;
 int i_curr_steps = 0;
-
+int saltos = 0;
 typedef struct _frame
 {
 	//Variables para GUARDAR Key Frames
@@ -270,6 +276,40 @@ void myData()
 
 void animate(void)
 {
+	if (animacion) {
+		if (!avanzar && !giro && !salto && !baja) {
+			movKit_x += 0.05f;
+			if (movKit_x >= -10.0f)
+				giro = true;
+		}
+		else if (!avanzar && giro && !salto && !baja) {
+			movKit_x += 0.05f;
+			movGiro_y += 20.0f;
+			if (movGiro_y >= 420.0f && movKit_x >= -3.75f) 
+				salto = true;
+			
+		}
+		else if (!avanzar && giro && salto && !baja) {
+			movKit_x += 0.05f;
+			movKit_y += 0.05f;
+			if (movKit_y >= -1.5f ) {
+				baja = true;
+				salto = false;
+			}
+		}
+		else if (!avanzar && giro && !salto && baja) {
+			movKit_x += 0.05f;
+			movKit_y -= 0.05f;
+			if (movKit_y <= -2.0f ) {
+				baja = false;
+				salto = true;
+				saltos++;
+			}
+		}
+		if (saltos == 5)
+			animacion = false;
+		
+	}
 	
 }
 
@@ -309,6 +349,8 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	mesaProf.Draw(shader);
 	//Textura Gandalf;
 	if (GandalfTime) {
+		model = glm::translate(tmp, glm::vec3(-6.0f, 2.0f, -16.9f));
+		shader.setMat4("model", model);
 		glBindVertexArray(VAO);
 		glBindTexture(GL_TEXTURE_2D, GandalfTexture[i]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -1032,8 +1074,8 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	extinguidor.Draw(shader);
 
 	//Padoru
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(-14.0f, -2.0f, -15.0f));
-	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit_x, movKit_y, -15.0f));
+	model = glm::rotate(model, glm::radians(movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	padoru.Draw(shader);
 
@@ -1170,6 +1212,20 @@ void my_input(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS and GandalfTime) {
 		SoundEngine->stopAllSounds();
 		GandalfTime = false;
+	}
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+		animacion = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+		movKit_x = -14.0f;
+		movGiro_y = 90.0f;
+		saltos = 0;
+		movKit_y = -2.0f;
+		animacion = false;
+		giro = false;
+		salto = false;
+		baja = false;
+
 	}
 }
 
