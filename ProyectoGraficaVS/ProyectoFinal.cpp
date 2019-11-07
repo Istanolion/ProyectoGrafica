@@ -4,7 +4,7 @@
 #include <glew.h>
 #include <glfw3.h>
 #include <stb_image.h>
-#include<windows.h>
+#include <windows.h>
 #include "camera.h"
 #include "Model.h"
 
@@ -80,7 +80,7 @@ unsigned int generateTextures(const char* filename, bool alfa)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+	//stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
 	
 	unsigned char *data = stbi_load(filename, &width, &height, &nrChannels, 0);
 	if (data)
@@ -195,10 +195,10 @@ void myData()
 	float vertices[] = {
 		//vertex	//textures 
 	// positions          // texture coords
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
+		-2.0f, -2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
+		 2.0f, -2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+		 2.0f,  2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
+		-2.0f,  2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
 
 	};
 	unsigned int indices[] = {
@@ -235,7 +235,7 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, Model pizarron)
 
 {
 	
@@ -257,20 +257,27 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
-	
+
+	model = glm::translate(tmp, glm::vec3(-6.0f, 2.0f, -16.9f));
+	shader.setMat4("model", model);
+
 	//Textura Gandalf;
-/*	glBindVertexArray(VAO);
-	glBindTexture(GL_TEXTURE_2D, GandalfTexture[i]);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	if (i < 70) {
-		Sleep(50);
-		i++;
-		
+	if (GandalfTime) {
+		glBindVertexArray(VAO);
+		glBindTexture(GL_TEXTURE_2D, GandalfTexture[i]);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		if (i < 70) {
+			Sleep(50);
+			i++;
+
+		}
+		else
+			i = 0;
 	}
-	else
-		i = 0;
-		*/
-	
+	pizarron.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	shader.setMat4("model", model);
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
 	//Dibujo 1er equipo computo
@@ -626,14 +633,12 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 
 	//Muro trasera
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.2f, 1.5f, 6.0f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
 
 	//Muro lateral izquierda
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-15.0f, 1.5f, -7.8f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
@@ -641,7 +646,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 
 	//Muro lateral derecha
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.2f, 1.5f, -7.8f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
@@ -649,7 +653,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 
 	//Muro delantero
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.2f, 1.5f, -17.0f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
@@ -716,7 +719,7 @@ int main()
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
 	Model techo = ((char*)"Models/Techo/Techo.obj");
 	Model muro = ((char*)"Models/Muros/Muro.obj");
-
+	Model Pizarron= ((char*)"Models/Pizarron/pizarron.obj");
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	// render loop
@@ -740,7 +743,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla,Pizarron);
 
 
 
@@ -777,12 +780,13 @@ void my_input(GLFWwindow *window)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		animacion = true;
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
-		GandalfTime = !GandalfTime;
-		if (GandalfTime)
-			SoundEngine->play2D("Musica/GandalfSax.mp3", GL_TRUE);
-		else
-			SoundEngine->stopAllSounds();
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS and !GandalfTime) {
+		GandalfTime = true;
+		SoundEngine->play2D("Musica/GandalfSax.mp3", GL_TRUE);
+	}
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS and GandalfTime) {
+		SoundEngine->stopAllSounds();
+		GandalfTime = false;
 	}
 }
 
