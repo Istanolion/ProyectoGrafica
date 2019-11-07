@@ -4,7 +4,7 @@
 #include <glew.h>
 #include <glfw3.h>
 #include <stb_image.h>
-
+#include<windows.h>
 #include "camera.h"
 #include "Model.h"
 
@@ -56,14 +56,8 @@ float	movX = 0.0f,
 		rotX = 0.0f;
 
 //Texture
-unsigned int	t_smile,
-				t_toalla,
-				t_unam,
-				t_white,
-				t_panda,
-				t_cubo,
-				t_caja,
-				t_caja_brillo;
+unsigned int GandalfTexture[71];
+int i = 0;
 
 //For model
 bool animacion = false;
@@ -122,17 +116,94 @@ void getResolution()
 void LoadTextures()
 {
 
-	
+	GandalfTexture[0] = generateTextures("Gandalf/Gandalf0000.png", 1);
+	GandalfTexture[1] = generateTextures("Gandalf/Gandalf0001.png", 1);
+	GandalfTexture[2] = generateTextures("Gandalf/Gandalf0002.png", 1);
+	GandalfTexture[3] = generateTextures("Gandalf/Gandalf0003.png", 1);
+	GandalfTexture[4] = generateTextures("Gandalf/Gandalf0004.png", 1);
+	GandalfTexture[5] = generateTextures("Gandalf/Gandalf0005.png", 1);
+	GandalfTexture[6] = generateTextures("Gandalf/Gandalf0006.png", 1);
+	GandalfTexture[7] = generateTextures("Gandalf/Gandalf0007.png", 1);
+	GandalfTexture[8] = generateTextures("Gandalf/Gandalf0008.png", 1);
+	GandalfTexture[9] = generateTextures("Gandalf/Gandalf0009.png", 1);
+	GandalfTexture[10] = generateTextures("Gandalf/Gandalf0010.png", 1);
+	GandalfTexture[11] = generateTextures("Gandalf/Gandalf0011.png", 1);
+	GandalfTexture[12] = generateTextures("Gandalf/Gandalf0012.png", 1);
+	GandalfTexture[13] = generateTextures("Gandalf/Gandalf0013.png", 1);
+	GandalfTexture[14] = generateTextures("Gandalf/Gandalf0014.png", 1);
+	GandalfTexture[15] = generateTextures("Gandalf/Gandalf0015.png", 1);
+	GandalfTexture[16] = generateTextures("Gandalf/Gandalf0016.png", 1);
+	GandalfTexture[17] = generateTextures("Gandalf/Gandalf0017.png", 1);
+	GandalfTexture[18] = generateTextures("Gandalf/Gandalf0018.png", 1);
+	GandalfTexture[19] = generateTextures("Gandalf/Gandalf0019.png", 1);
+	GandalfTexture[20] = generateTextures("Gandalf/Gandalf0020.png", 1);
+	GandalfTexture[21] = generateTextures("Gandalf/Gandalf0021.png", 1);
+	GandalfTexture[22] = generateTextures("Gandalf/Gandalf0022.png", 1);
+	GandalfTexture[23] = generateTextures("Gandalf/Gandalf0023.png", 1);
+	GandalfTexture[24] = generateTextures("Gandalf/Gandalf0024.png", 1);
+	GandalfTexture[25] = generateTextures("Gandalf/Gandalf0025.png", 1);
+	GandalfTexture[26] = generateTextures("Gandalf/Gandalf0026.png", 1);
+	GandalfTexture[27] = generateTextures("Gandalf/Gandalf0027.png", 1);
+	GandalfTexture[28] = generateTextures("Gandalf/Gandalf0028.png", 1);
+	GandalfTexture[29] = generateTextures("Gandalf/Gandalf0029.png", 1);
+	GandalfTexture[30] = generateTextures("Gandalf/Gandalf0030.png", 1);
+	GandalfTexture[31] = generateTextures("Gandalf/Gandalf0031.png", 1);
+	GandalfTexture[32] = generateTextures("Gandalf/Gandalf0032.png", 1);
+	GandalfTexture[33] = generateTextures("Gandalf/Gandalf0033.png", 1);
+	GandalfTexture[34] = generateTextures("Gandalf/Gandalf0034.png", 1);
+	GandalfTexture[35] = generateTextures("Gandalf/Gandalf0035.png", 1);
+	GandalfTexture[36] = generateTextures("Gandalf/Gandalf0036.png", 1);
+	GandalfTexture[37] = generateTextures("Gandalf/Gandalf0037.png", 1);
+	GandalfTexture[38] = generateTextures("Gandalf/Gandalf0038.png", 1);
+	GandalfTexture[39] = generateTextures("Gandalf/Gandalf0039.png", 1);
+	GandalfTexture[40] = generateTextures("Gandalf/Gandalf0040.png", 1);
+	GandalfTexture[41] = generateTextures("Gandalf/Gandalf0041.png", 1);
+	GandalfTexture[42] = generateTextures("Gandalf/Gandalf0042.png", 1);
+	GandalfTexture[43] = generateTextures("Gandalf/Gandalf0043.png", 1);
+	GandalfTexture[44] = generateTextures("Gandalf/Gandalf0044.png", 1);
+	GandalfTexture[45] = generateTextures("Gandalf/Gandalf0045.png", 1);
+	GandalfTexture[46] = generateTextures("Gandalf/Gandalf0046.png", 1);
+	GandalfTexture[47] = generateTextures("Gandalf/Gandalf0047.png", 1);
+	GandalfTexture[48] = generateTextures("Gandalf/Gandalf0048.png", 1);
+	GandalfTexture[49] = generateTextures("Gandalf/Gandalf0049.png", 1);
+	GandalfTexture[50] = generateTextures("Gandalf/Gandalf0050.png", 1);
+	GandalfTexture[51] = generateTextures("Gandalf/Gandalf0051.png", 1);
+	GandalfTexture[52] = generateTextures("Gandalf/Gandalf0052.png", 1);
+	GandalfTexture[53] = generateTextures("Gandalf/Gandalf0053.png", 1);
+	GandalfTexture[54] = generateTextures("Gandalf/Gandalf0054.png", 1);
+	GandalfTexture[55] = generateTextures("Gandalf/Gandalf0055.png", 1);
+	GandalfTexture[56] = generateTextures("Gandalf/Gandalf0056.png", 1);
+	GandalfTexture[57] = generateTextures("Gandalf/Gandalf0057.png", 1);
+	GandalfTexture[58] = generateTextures("Gandalf/Gandalf0058.png", 1);
+	GandalfTexture[59] = generateTextures("Gandalf/Gandalf0059.png", 1);
+	GandalfTexture[60] = generateTextures("Gandalf/Gandalf0060.png", 1);
+	GandalfTexture[61] = generateTextures("Gandalf/Gandalf0061.png", 1);
+	GandalfTexture[62] = generateTextures("Gandalf/Gandalf0062.png", 1);
+	GandalfTexture[63] = generateTextures("Gandalf/Gandalf0063.png", 1);
+	GandalfTexture[64] = generateTextures("Gandalf/Gandalf0064.png", 1);
+	GandalfTexture[65] = generateTextures("Gandalf/Gandalf0065.png", 1);
+	GandalfTexture[66] = generateTextures("Gandalf/Gandalf0066.png", 1);
+	GandalfTexture[67] = generateTextures("Gandalf/Gandalf0067.png", 1);
+	GandalfTexture[68] = generateTextures("Gandalf/Gandalf0068.png", 1);
+	GandalfTexture[69] = generateTextures("Gandalf/Gandalf0069.png", 1);
+	GandalfTexture[70] = generateTextures("Gandalf/Gandalf0070.png", 1);
+
 }
 
 void myData()
 {	
 	float vertices[] = {
-	0
+		//vertex	//textures 
+	// positions          // texture coords
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
 
 	};
 	unsigned int indices[] = {
-	0
+		0, 1, 3, // first triangle
+		1, 2, 3  // second triangle
 	};
 	
 	glGenVertexArrays(1, &VAO);
@@ -164,13 +235,8 @@ void animate(void)
 	
 }
 
-<<<<<<< HEAD
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado)
-=======
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model extinguidor, Model mouse, Model silla)
-
->>>>>>> Inaki
 {
 	
 	shader.use();
@@ -192,7 +258,17 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
 	
-
+	//Textura Gandalf;
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, GandalfTexture[i]);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	if (i < 70) {
+		Sleep(50);
+		i++;
+		
+	}
+	else
+		i = 0;
 	
 	//Dibujo 1a mesa lado derecho
 	mesa.Draw(shader);
@@ -204,7 +280,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-1.7f,0.44f,0.0f));
 	shader.setMat4("model", model);
 	cpu1.Draw(shader);
-<<<<<<< HEAD
+
 	model = glm::translate(tmp, glm::vec3(-2.4f, 0.2f, 0.4f));
 	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.75f, 0.7f, 1.0f));
@@ -215,14 +291,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	mouse.Draw(shader);
-=======
-	//----------------------
-	model = glm::translate(tmp, glm::vec3(0.0f, 0.0f, -0.5f));
-	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	silla.Draw(shader);
-	//------------
->>>>>>> Inaki
+
 	//Dibujo de 2do equipo de computo
 	model = glm::translate(tmp, glm::vec3(-0.95f, 0.03f, -0.1f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -511,7 +580,6 @@ int main()
 #endif
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
     // glfw window creation
     // --------------------
 	monitors = glfwGetPrimaryMonitor();
@@ -550,11 +618,9 @@ int main()
 	Model cpu2 = ((char*)"Models/cpu2/CPU2.obj");
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
 	Model mouse = ((char*)"Models/Mouse/mouse.obj");
-<<<<<<< HEAD
+
 	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
 
-=======
->>>>>>> Inaki
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
 	Model Silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
@@ -583,11 +649,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-<<<<<<< HEAD
+
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado);
-=======
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera,extinguidor,mouse,Silla);
->>>>>>> Inaki
+
 
 
 
