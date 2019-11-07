@@ -235,7 +235,8 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, Model pizarron)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru)
 
 {
 	
@@ -984,6 +985,13 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	extinguidor.Draw(shader);
+
+	//Padoru
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-14.0f, -2.0f, -15.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	padoru.Draw(shader);
+
 }
 
 int main()
@@ -1046,7 +1054,8 @@ int main()
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
 	Model techo = ((char*)"Models/Techo/Techo.obj");
 	Model muro = ((char*)"Models/Muros/Muro.obj");
-	Model Pizarron= ((char*)"Models/Pizarron/pizarron.obj");
+	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");
+	Model padoru = ((char*)"Models/Padoru/padoru.obj");
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	// render loop
@@ -1070,7 +1079,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla,Pizarron);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru);
 
 
 
