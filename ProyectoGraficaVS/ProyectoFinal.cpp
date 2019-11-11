@@ -1,5 +1,7 @@
 /*---------------------------------------------------------*/
 /*-----------------------Proyecto final-------------------- */
+/*Garciarebollo Rojas Diego Iñaki
+Lona Lopez Alberto Alonzo*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
