@@ -1,7 +1,5 @@
 /*---------------------------------------------------------*/
 /*-----------------------Proyecto final-------------------- */
-/*Garciarebollo Rojas Diego Iñaki
-Lona Lopez Alberto Alonzo*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
@@ -397,7 +395,26 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 {
 	
 	shader.use();
+	shader.setVec3("viewPos", camera.Position);
+	shader.setVec3("dirLight.direction", lightDirection);
+	shader.setVec3("dirLight.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
 
+	//shader.setVec3("pointLight.position", lightPosition);
+	shader.setVec3("pointLight.position", glm::vec3(2.0f, 4.0f, 3.0f));
+
+
+	shader.setVec3("pointLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setVec3("pointLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setVec3("pointLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setFloat("pointLight.constant", 1.0f);
+	shader.setFloat("pointLight.linear", 0.9f);
+	shader.setFloat("pointLight.quadratic", 0.032f);
+
+
+
+	shader.setFloat("material_shininess", 32.0f);
 	// create transformations and Projection
 	glm::mat4 tmp = glm::mat4(1.0f);
 	glm::mat4 flor = glm::mat4(1.0f);
@@ -1210,7 +1227,7 @@ int main()
 	myData();
 	glEnable(GL_DEPTH_TEST);
 	InitiateStruct();
-	Shader modelShader("Shaders/modelLoading.vs", "Shaders/modelLoading.fs");
+	Shader modelShader("Shaders/shader_Lights.vs", "Shaders/shader_Lights.fs");
 	// Load models
 	Model soccer = ((char*)"Models/Soccer/soccer.obj");
 	Model mesa = ((char*)"Models/Mesa/mesa.obj");

@@ -27,6 +27,8 @@
   <ItemGroup>
     <None Include="shaders\modelLoading.fs" />
     <None Include="shaders\modelLoading.vs" />
+    <None Include="shaders\shader_Lights.fs" />
+    <None Include="shaders\shader_Lights.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
