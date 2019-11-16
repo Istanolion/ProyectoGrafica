@@ -181,7 +181,7 @@ vec3 CalcSpotLight( SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir )
         if(result.a < 0.1)
             discard;
         FragColor = result;
-         return (result);
+         return vec3(result);
     }
     else 
     {
@@ -191,7 +191,7 @@ vec3 CalcSpotLight( SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir )
         if(result.a < 0.1)
             discard;
         FragColor = result;
-         return (result);
+         return vec3(result);
     }
 
    
