@@ -1,0 +1,15 @@
+# Blender MTL File: 'Sting.blend'
+# Material Count: 1
+
+newmtl Sting
+Ns 179.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 2.000000 2.000000 2.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 Sting_Normal.png
+map_Kd Sting_Base_Color.png
+map_d Sting_Base_Color.png

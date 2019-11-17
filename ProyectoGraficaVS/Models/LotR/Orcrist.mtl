@@ -1,0 +1,35 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl 02_-_Default
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.011765 0.980392 0.078431
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd orcrist_low_02 - Default_BaseColor.png
+
+newmtl 03_-_Default
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.882353 0.000000 0.850980
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd orcrist_low_03 - Default_BaseColor.png
+
+newmtl default
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 0.878431 0.050980
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd orcrist_low_default_BaseColor.png

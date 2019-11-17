@@ -1,0 +1,25 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl castle
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.827500 0.827500 0.827500
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd gris.jpg
+
+newmtl grass
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588200 0.588200 0.588200
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.500000
+d 1.000000
+illum 1
+map_Bump -bm 0.300000 Map__2_Cellular.tga
+map_Kd grass.jpg
