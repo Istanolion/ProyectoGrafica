@@ -1,7 +1,5 @@
 /*---------------------------------------------------------*/
 /*-----------------------Proyecto final-------------------- */
-/*Garciarebollo Rojas Diego Iñaki
-Lona Lopez Alberto Alonzo*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
@@ -391,13 +389,32 @@ void animate(void)
 }
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf,Model soccer)
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf,Model soccer,Model Shield)
 
 
 {
 	
 	shader.use();
+	shader.setVec3("viewPos", camera.Position);
+	shader.setVec3("dirLight.direction", lightDirection);
+	shader.setVec3("dirLight.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
 
+	//shader.setVec3("pointLight.position", lightPosition);
+	shader.setVec3("pointLight.position", glm::vec3(2.0f, 4.0f, 3.0f));
+
+
+	shader.setVec3("pointLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setVec3("pointLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setVec3("pointLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setFloat("pointLight.constant", 1.0f);
+	shader.setFloat("pointLight.linear", 0.9f);
+	shader.setFloat("pointLight.quadratic", 0.032f);
+
+
+
+	shader.setFloat("material_shininess", 32.0f);
 	// create transformations and Projection
 	glm::mat4 tmp = glm::mat4(1.0f);
 	glm::mat4 flor = glm::mat4(1.0f);
@@ -420,6 +437,12 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f + scaleX, 1.0f + scaleY, 1.0f + scaleZ));
 	shader.setMat4("model", model);
 	soccer.Draw(shader);
+
+	//Shield
+	model = glm::translate(tmp, glm::vec3(-5.0f, 3.0f , 3.0f));
+	model = glm::scale(model, glm::vec3(1.0f , 1.0f , 1.0f ));
+	shader.setMat4("model", model);
+	Shield.Draw(shader);
 
 	model = glm::mat4(1.0f);
 
@@ -1178,8 +1201,7 @@ int main()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	
     // glfw window creation
     // --------------------
 	monitors = glfwGetPrimaryMonitor();
@@ -1209,8 +1231,9 @@ int main()
 	LoadTextures();
 	myData();
 	glEnable(GL_DEPTH_TEST);
+
 	InitiateStruct();
-	Shader modelShader("Shaders/modelLoading.vs", "Shaders/modelLoading.fs");
+	Shader modelShader("Shaders/shader_Lights.vs", "Shaders/shader_Lights.fs");
 	// Load models
 	Model soccer = ((char*)"Models/Soccer/soccer.obj");
 	Model mesa = ((char*)"Models/Mesa/mesa.obj");
@@ -1230,6 +1253,9 @@ int main()
 	Model muro = ((char*)"Models/Muros/Muro.obj");
 	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
+
+	//Lord of the rings Models
+	Model GondorShield = ((char*)"Models/LotR/urukHai.obj");
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	// render loop
@@ -1253,7 +1279,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf,soccer);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf,soccer,GondorShield);
 
 
 
