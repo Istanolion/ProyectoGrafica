@@ -389,7 +389,7 @@ void animate(void)
 }
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf,Model soccer,Model Shield)
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber)
 
 
 {
@@ -1145,7 +1145,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo techo
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, 5.0f, -5.0f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(25.0f, 25.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(35.0f, 35.0f, 1.0f));
 	shader.setMat4("model", model);
 	techo.Draw(shader);
 
@@ -1186,6 +1186,14 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::rotate(model, glm::radians(movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	padoru.Draw(shader);
+
+	//Modelos Fate
+	//Saber
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(7.0f, 0.1f, -15.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
+	shader.setMat4("model", model);
+	saber.Draw(shader);
 
 }
 
@@ -1253,6 +1261,11 @@ int main()
 	Model muro = ((char*)"Models/Muros/Muro.obj");
 	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
+	
+	
+	//Fate Models
+	Model saber = ((char*)"Models/SaberLily/SaberLily1.obj");
+	
 
 	//Lord of the rings Models
 	Model GondorShield = ((char*)"Models/LotR/urukHai.obj");
@@ -1279,7 +1292,8 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf,soccer,GondorShield);
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer,
+			GondorShield, saber);
 
 
 
