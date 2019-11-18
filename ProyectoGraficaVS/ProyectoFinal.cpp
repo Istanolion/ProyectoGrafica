@@ -1268,7 +1268,7 @@ int main()
 	
 
 	//Lord of the rings Models
-	Model GondorShield = ((char*)"Models/LotR/urukHai.obj");
+	Model GondorShield = ((char*)"Models/LotR/isengard.obj");
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	// render loop
