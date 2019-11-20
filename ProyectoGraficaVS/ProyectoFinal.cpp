@@ -847,7 +847,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo piso de madera/lozeta
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, -2.0f, -5.0f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(25.0f, 25.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(45.0f, 45.0f, 1.0f));
 	shader.setMat4("model", model);
 	pisomadera.Draw(shader);
 
@@ -1145,33 +1145,47 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//Dibujo techo
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, 5.0f, -5.0f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(35.0f, 35.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(60.0f, 40.0f, 1.0f));
 	shader.setMat4("model", model);
 	techo.Draw(shader);
 
 	//Muro trasero
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.2f, 1.5f, 6.0f));
-	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
 
 	//Muro lateral izquierda
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-15.0f, 1.5f, -7.8f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
+	shader.setMat4("model", model);
+	muro.Draw(shader);
+
+	//Segundo Muro lateral izquierda
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-33.0f, 1.5f, -7.8f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
 
 	//Muro lateral derecha
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.2f, 1.5f, -7.8f));
 	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
+	shader.setMat4("model", model);
+	muro.Draw(shader);
+
+	//Segundo Muro lateral derecha
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(21.4f, 1.5f, -7.8f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
 
 	//Muro delantero
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.2f, 1.5f, -17.0f));
-	model = glm::scale(model, glm::vec3(80.0f, 7.0f, 1.0f));
+	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
 	muro.Draw(shader);
 
@@ -1180,6 +1194,11 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	extinguidor.Draw(shader);
+
+/*	//Garrafon
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.05f, 5.9f));
+	shader.setMat4("model", model);
+	garrafon.Draw(shader);		*/
 
 	//Padoru
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit_x, movKit_y, -15.0f));
@@ -1254,6 +1273,7 @@ int main()
 	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
 
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
+//	Model garrafon = ((char*)"Models/Garrafon/garrafon1.obj");
 	Model silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
@@ -1292,7 +1312,7 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 
-		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer,
+		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
 			GondorShield, saber);
 
 

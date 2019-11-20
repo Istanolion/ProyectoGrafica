@@ -1,0 +1,13 @@
+# Blender MTL File: 'Garrafon.blend'
+# Material Count: 1
+
+newmtl SGR_PC_PRO_SGC_WCO_B.001
+Ns 96.078443
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.025000 0.025000 0.025000
+Ke 0.0 0.0 0.0
+Ni 1.000000
+d 0.000000
+illum 9
+map_Kd SG-R_PC_PROP_S.G.C_Water_Cooler_Body_D.png

@@ -1,0 +1,13 @@
+# Blender3D MTL File: 
+# Material Count: 1
+newmtl SGR_PC_PRO_SGC_WCO_B
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.025000 0.025000 0.025000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd SG-R_PC_PROP_S.G.C_Water_Cooler_Body_D.png
+
+
