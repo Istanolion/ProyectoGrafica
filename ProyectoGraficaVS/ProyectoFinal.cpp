@@ -456,6 +456,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-0.8f, 0.0f, -11.2f));
 	shader.setMat4("model", model);
 	mesaProf.Draw(shader);
+
 	//Textura Gandalf;
 	if (GandalfTime) {
 		model = glm::translate(tmp, glm::vec3(-6.0f, 2.0f, -16.9f));
@@ -1195,7 +1196,13 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	extinguidor.Draw(shader);
-
+	/*
+	//Se dibujan papeles en la mesa
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.8f, 0.0f, -11.2f));
+	model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+	shader.setMat4("model", model);
+	libros.Draw(shader);*/
+	
 /*	//Garrafon
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.05f, 5.9f));
 	shader.setMat4("model", model);
@@ -1230,13 +1237,13 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	clarent.Draw(shader);
 
 	//Excalibur2	***********************************************
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, -1.5f, -15.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(24.0f, -2.5f, -15.0f));
 	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	excalibur2.Draw(shader);
 
-	//GaeBolf	******************************************
+	//GaeBolg	******************************************
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -2.0f));
 	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
@@ -1342,15 +1349,15 @@ int main()
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
 	Model techo = ((char*)"Models/Techo/Techo.obj");
 	Model muro = ((char*)"Models/Muros/Muro.obj");
-	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");
+	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");	
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
-	
+	//Model libros = ((char*)"Models/Libros/Books.obj");
 	
 	//Fate Models
 	Model saber = ((char*)"Models/Fate/SaberLily/SaberLily1.obj");
 	Model clarent = ((char*)"Models/Fate/Clarent/Clarent.obj");
 	Model berserker = ((char*)"Models/Fate/Berserker/Berserkerfz.obj");
-	Model excalibur2 = ((char*)"Models/Fate/2Excalibur/source/2Excalibur.obj");
+	Model excalibur2 = ((char*)"Models/Fate/2Excalibur/2Excalibur.obj");
 	Model gaebolg = ((char*)"Models/Fate/LancerW/GaeBolg.obj");
 	Model saberalter = ((char*)"Models/Fate/SaberAlterC/Saber.obj");
 	Model excaliburmorgan = ((char*)"Models/Fate/SaberAlterW/ExcaliburMorgan.obj");
@@ -1411,7 +1418,6 @@ void my_input(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera.ProcessKeyboard(FORWARD, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
