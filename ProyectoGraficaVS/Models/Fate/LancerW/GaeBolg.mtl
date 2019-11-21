@@ -12,5 +12,5 @@ newmtl lancer_wpn_png
 	Kd 0.8000 0.8000 0.8000
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\alonz\Documents\UNAM\FI IC\7o Semestre\Computación Gráfica e  Interacción Humano-Computadora\Teoría\Modelos PF\LancerW\lancer_wpn.png
-	map_Kd C:\Users\alonz\Documents\UNAM\FI IC\7o Semestre\Computación Gráfica e  Interacción Humano-Computadora\Teoría\Modelos PF\LancerW\lancer_wpn.png
+	map_Ka C:\Users\alonz\Documents\GitHub\ProyectoGrafica\ProyectoGraficaVS\Models\Fate\LancerW\lancer_wpn.png
+	map_Kd C:\Users\alonz\Documents\GitHub\ProyectoGrafica\ProyectoGraficaVS\Models\Fate\LancerW\lancer_wpn.png
