@@ -389,7 +389,7 @@ void animate(void)
 }
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber)
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model clarent, Model berserker)
 
 
 {
@@ -1214,6 +1214,19 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	saber.Draw(shader);
 
+	//Berserker
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(13.5f, 0.05f, -15.0f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
+	shader.setMat4("model", model);
+	berserker.Draw(shader);
+
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(9.0f, 1.0f, -15.0f));
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+	shader.setMat4("model", model);
+	clarent.Draw(shader);
+
 }
 
 int main()
@@ -1284,7 +1297,9 @@ int main()
 	
 	
 	//Fate Models
-	Model saber = ((char*)"Models/SaberLily/SaberLily1.obj");
+	Model saber = ((char*)"Models/Fate/SaberLily/SaberLily1.obj");
+	Model clarent = ((char*)"Models/Fate/Clarent/Clarent.obj");
+	Model berserker = ((char*)"Models/Fate/Berserker/Berserkerfz.obj");
 	
 
 	//Lord of the rings Models
@@ -1313,7 +1328,7 @@ int main()
 		//display(modelShader, ourModel, llantasModel);
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
-			GondorShield, saber);
+			GondorShield, saber, clarent, berserker);
 
 
 
