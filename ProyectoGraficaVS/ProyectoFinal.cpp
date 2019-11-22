@@ -81,15 +81,11 @@ float movKit02_x = 24.0f;
 bool GandalfTime = false;
 
 
-float	posY = 0.0f,
-scaleX = 0.0f,
-scaleY = 0.0f,
-scaleZ = 0.0f;
+float	rotCabeza = 0.0f,
+rotBrazo = 0.0f;
 
-float	incpY = 0.0f,
-incsX = 0.0f,
-incsY = 0.0f,
-incsZ = 0.0f;
+float	rotC = 0.0f,
+rotB=0.0f;
 
 
 #define MAX_FRAMES 9
@@ -98,12 +94,8 @@ int i_curr_steps = 0;
 int saltos = 0;
 typedef struct _frame
 {
-	//Variables para GUARDAR Key Frames
-	float scaleX;
-	float scaleY;
-	float scaleZ;
-	float posY;		//Variable para PosicionY
-
+	float rotBrazo;
+	float rotCabeza;
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
@@ -113,55 +105,30 @@ int playIndex = 0;
 
 void interpolation(void)
 {
-	incpY = (KeyFrame[playIndex + 1].posY - KeyFrame[playIndex].posY) / i_max_steps;
-	incsX = (KeyFrame[playIndex + 1].scaleX - KeyFrame[playIndex].scaleX) / i_max_steps;
-	incsY = (KeyFrame[playIndex + 1].scaleY - KeyFrame[playIndex].scaleY) / i_max_steps;
-	incsZ = (KeyFrame[playIndex + 1].scaleZ - KeyFrame[playIndex].scaleZ) / i_max_steps;
+	rotB = (KeyFrame[playIndex + 1].rotBrazo - KeyFrame[playIndex].rotBrazo) / i_max_steps;
+	rotC = (KeyFrame[playIndex + 1].rotCabeza - KeyFrame[playIndex].rotCabeza) / i_max_steps;
 }
 
 void InitiateStruct() {
-	KeyFrame[0].posY = 0.0f;
-	KeyFrame[0].scaleX = 0.0f;
-	KeyFrame[0].scaleY = 0.0f;
-	KeyFrame[0].scaleZ = 0.0f;
+	KeyFrame[0].rotBrazo = 0.0f;
+	KeyFrame[0].rotCabeza = 0.0f;
 
-	KeyFrame[1].posY = 1.5f;
-	KeyFrame[1].scaleX = 0.5f;
-	KeyFrame[1].scaleY = 0.5f;
-	KeyFrame[1].scaleZ = -0.5f;
 
-	KeyFrame[2].posY = 3.0f;
-	KeyFrame[2].scaleX = 0.0f;
-	KeyFrame[2].scaleY = 0.0f;
-	KeyFrame[2].scaleZ = 0.0f;
+	KeyFrame[1].rotBrazo = 45.0f;
+	KeyFrame[1].rotCabeza = 15.0f;
 
-	KeyFrame[3].posY = 3.0f;
-	KeyFrame[3].scaleX = -0.5f;
-	KeyFrame[3].scaleY = -0.5f;
-	KeyFrame[3].scaleZ = 0.5f;
+	KeyFrame[2].rotBrazo = 0.0f;
+	KeyFrame[2].rotCabeza = -15.0f;
 
-	KeyFrame[4].posY = 3.0f;
-	KeyFrame[4].scaleX = 0.0f;
-	KeyFrame[4].scaleY = 0.0f;
-	KeyFrame[4].scaleZ = 0.0f;
+	KeyFrame[3].rotBrazo = 0.0f;
+	KeyFrame[3].rotCabeza = 0.0f;
 
-	KeyFrame[5].posY = 1.5f;
-	KeyFrame[5].scaleX = 0.5f;
-	KeyFrame[5].scaleY = 0.5f;
-	KeyFrame[5].scaleZ = -0.5f;
-
-	KeyFrame[6].posY = 0.0f;
-	KeyFrame[6].scaleX = 0.0f;
-	KeyFrame[6].scaleY = 0.0f;
-	KeyFrame[6].scaleZ = 0.0f;
-	FrameIndex = 5;
+	FrameIndex = 4;
 }
 void resetElements(void)
 {
-	posY = KeyFrame[0].posY;
-	scaleX = KeyFrame[0].scaleX;
-	scaleY = KeyFrame[0].scaleY;
-	scaleZ = KeyFrame[0].scaleZ;
+	rotBrazo = KeyFrame[0].rotBrazo;
+	rotCabeza = KeyFrame[0].rotCabeza;
 
 }
 unsigned int generateTextures(const char* filename, bool alfa)
@@ -360,10 +327,9 @@ void animate(void)
 		else
 		{
 			//Draw animation
-			posY += incpY;
-			scaleX += incsX;
-			scaleY += incsY;
-			scaleZ += incsZ;
+			rotBrazo += rotB;
+			rotCabeza += rotC;
+		
 			i_curr_steps++;
 		}
 
@@ -431,6 +397,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setFloat("material_shininess", 32.0f);
 	// create transformations and Projection
 	glm::mat4 tmp = glm::mat4(1.0f); 
+	glm::mat4 tmp2 = glm::mat4(1.0f);
 	glm::mat4 flor = glm::mat4(1.0f);
 	glm::mat4 model = glm::mat4(1.0f);		// initialize Matrix, Use this matrix for individual models
 	glm::mat4 view = glm::mat4(1.0f);		//Use this matrix for ALL models
@@ -451,10 +418,15 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	//We draw an Uruk of Isengard (Sent By Saruman the White)
 	model = glm::translate(tmp, glm::vec3(-17.470078f, -1.6f, 2.673361f));
 	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(rotBrazo), glm::vec3(1.0f, 0.0f, 0.0f));
+	tmp2 = model;
 	shader.setMat4("model", model);
 	UrukT.Draw(shader);
+	shader.setMat4("model", model);
 	UrukLA.Draw(shader);
 	UrukRA.Draw(shader);
+	model = glm::rotate(tmp2, glm::radians(rotCabeza), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
 	UrukH.Draw(shader);
 
 	//We draw the head of the Balrog from the mines of Moria (Khazad-Dum)
@@ -550,7 +522,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, BG_fate);
 	glDrawArrays(GL_QUADS, 4, 4); */
-
+	
 	model = glm::mat4(1.0f);
 	shader.setMat4("model", model);
 	//Dibujo 1a mesa lado derecho
