@@ -1,5 +1,7 @@
 /*---------------------------------------------------------*/
-/*-----------------------Proyecto final-------------------- */
+/*-----------------------Proyecto final--------------------*/
+/*-------------Garciarebollo Rojas Diego Iñaki-------------*/
+/*----------------Lona López Alberto Alonzo----------------*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
@@ -58,6 +60,7 @@ float	movX = 0.0f,
 //Texture
 unsigned int GandalfTexture[71];
 int i = 0;
+unsigned int BG_fate;
 
 //For model
 bool animacion = false;
@@ -68,6 +71,10 @@ bool baja = false;
 float movKit_x = -14.0f;
 float movKit_y = -2.0f;
 float movGiro_y = 90.0f;
+float movKit01_x = 20.0f;
+float movKit02_x = 24.0f;
+//float movKit01_y = -2.0f;
+//float movGiro01_y = 90.0f;
 
 //Musica
 bool GandalfTime = false;
@@ -277,6 +284,7 @@ void LoadTextures()
 	GandalfTexture[69] = generateTextures("Gandalf/Gandalf0069.png", 1);
 	GandalfTexture[70] = generateTextures("Gandalf/Gandalf0070.png", 1);
 
+	BG_fate = generateTextures("Models/Fate/UBW.png", 0);
 }
 
 void myData()
@@ -289,10 +297,18 @@ void myData()
 		 2.0f,  2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
 		-2.0f,  2.0f, 0.1f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
 
+		5.0f,	-1.0f,	0.0f,		0.0f, 0.0f, 
+		5.0f,	4.0f,	0.0f,		0.0f, 1.0f,
+		10.0f,	-1.0f,	0.0f,		1.0f, 0.0f,
+		10.0f,	4.0f,	0.0f,		1.0f, 1.0f,
+
 	};
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
+		1, 2, 3,  // second triangle
+
+		4, 5, 7,
+		7, 6, 4,
 	};
 	
 	glGenVertexArrays(1, &VAO);
@@ -388,11 +404,9 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model clarent, Model berserker, Model excalibur2,
-	Model gaebolg, Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou)
-
-
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, 
+	Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou,
+	Model riderwpn, Model gaebolgalternative)
 {
 	
 	shader.use();
@@ -404,20 +418,15 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 
 	//shader.setVec3("pointLight.position", lightPosition);
 	shader.setVec3("pointLight.position", glm::vec3(2.0f, 4.0f, 3.0f));
-
-
 	shader.setVec3("pointLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setVec3("pointLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setVec3("pointLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
 	shader.setFloat("pointLight.constant", 1.0f);
 	shader.setFloat("pointLight.linear", 0.9f);
 	shader.setFloat("pointLight.quadratic", 0.032f);
-
-
-
 	shader.setFloat("material_shininess", 32.0f);
 	// create transformations and Projection
-	glm::mat4 tmp = glm::mat4(1.0f);
+	glm::mat4 tmp = glm::mat4(1.0f); 
 	glm::mat4 flor = glm::mat4(1.0f);
 	glm::mat4 model = glm::mat4(1.0f);		// initialize Matrix, Use this matrix for individual models
 	glm::mat4 view = glm::mat4(1.0f);		//Use this matrix for ALL models
@@ -467,12 +476,17 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 		if (i < 70) {
 			//Sleep(50);
 			i++;
-
 		}
 		else
 			i = 0;
 	}
-	
+	/*
+	//FondoFate
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, BG_fate);
+	glDrawArrays(GL_QUADS, 4, 4); */
 
 	model = glm::mat4(1.0f);
 	shader.setMat4("model", model);
@@ -1214,7 +1228,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	padoru.Draw(shader);
 
-	//Modelos Fate
+	//Modelos Fate	***************************************************
 	//Saber
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(7.0f, 0.1f, -15.0f));
 	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -1222,68 +1236,65 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	saber.Draw(shader);
 
-	//Berserker	**************************************************
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(13.5f, 0.05f, -15.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
-	shader.setMat4("model", model);
-	berserker.Draw(shader);
-
-	//Clarent	**********************************************
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(9.0f, 1.0f, -15.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-	shader.setMat4("model", model);
-	clarent.Draw(shader);
-
-	//Excalibur2	***********************************************
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(24.0f, -2.5f, -15.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+	//Excalibur2	
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(19.0f, -2.5f, -14.0f));
+	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 	shader.setMat4("model", model);
 	excalibur2.Draw(shader);
 
-	//GaeBolg	******************************************
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -2.0f));
-	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+	//GaeBolg	
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.6f, 3.5f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
 	shader.setMat4("model", model);
 	gaebolg.Draw(shader);
+	//GaeBolgAlternative
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.5f, 3.5f, -10.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+	shader.setMat4("model", model);
+	gaebolgalternative.Draw(shader);
+	//RiderWeapon
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.6f, 1.4f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));
+	shader.setMat4("model", model);
+	riderwpn.Draw(shader);
+	//Excalibur Morgan
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.6f, 2.0f, -6.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+	shader.setMat4("model", model);
+	excaliburmorgan.Draw(shader);
+	//Byakuga
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.6f, 2.0f, -11.0f));
+	//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+	shader.setMat4("model", model);
+	byakuga.Draw(shader);
+	//Kanshou
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(3.6f, 1.0f, -11.0f));
+	//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+	shader.setMat4("model", model);
+	kanshou.Draw(shader);
 
 	//Saber Alter
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(24.0f, -2.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit02_x, movKit_y, 0.0f));
+	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 	shader.setMat4("model", model);
 	saberalter.Draw(shader);
 
-	//Excalibur Morgan
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(24.0f, -2.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
-	shader.setMat4("model", model);
-	excaliburmorgan.Draw(shader);
-
 	//Archer
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(20.0f, -2.0f, -10.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit01_x, movKit_y, -10.0f));
+	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 	shader.setMat4("model", model);
 	archer.Draw(shader);
 
-	//Byakuga
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(20.0f, -2.0f, -10.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+	//Padoru
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit01_x, movKit_y, -6.0f));
+	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
-	byakuga.Draw(shader);
-
-	//Kanshou
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(20.0f, -2.0f, -10.0f));
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-	shader.setMat4("model", model);
-	kanshou.Draw(shader);
+	padoru.Draw(shader);
 }
 
 int main()
@@ -1341,9 +1352,7 @@ int main()
 	Model monitor = ((char*)"Models/Monitor/monitor.obj");
 	Model mouse = ((char*)"Models/Mouse/mouse.obj");
 	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
-
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
-//	Model garrafon = ((char*)"Models/Garrafon/garrafon1.obj");
 	Model silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
@@ -1351,19 +1360,18 @@ int main()
 	Model muro = ((char*)"Models/Muros/Muro.obj");
 	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");	
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
-	//Model libros = ((char*)"Models/Libros/Books.obj");
 	
 	//Fate Models
 	Model saber = ((char*)"Models/Fate/SaberLily/SaberLily1.obj");
-	Model clarent = ((char*)"Models/Fate/Clarent/Clarent.obj");
-	Model berserker = ((char*)"Models/Fate/Berserker/Berserkerfz.obj");
 	Model excalibur2 = ((char*)"Models/Fate/2Excalibur/2Excalibur.obj");
 	Model gaebolg = ((char*)"Models/Fate/LancerW/GaeBolg.obj");
 	Model saberalter = ((char*)"Models/Fate/SaberAlterC/Saber.obj");
 	Model excaliburmorgan = ((char*)"Models/Fate/SaberAlterW/ExcaliburMorgan.obj");
 	Model archer = ((char*)"Models/Fate/ArcherC/archer.obj");
-	Model byakuga = ((char*)"Models/Fate/SwordsArcherC/Byakuga.obj");
-	Model kanshou = ((char*)"Models/Fate/SwordsArcherC/Kanshou.obj");
+	Model byakuga = ((char*)"Models/Fate/SwordsArcher/Byakuga.obj");
+	Model kanshou = ((char*)"Models/Fate/SwordsArcher/Kanshou.obj");
+	Model riderwpn = ((char*)"Models/Fate/RiderW/WPNrider.obj");
+	Model gaebolgalternative = ((char*)"Models/Fate/GaeBolgAlternative/GaeBolgAllternative.obj");
 
 	//Lord of the rings Models
 	Model GondorShield = ((char*)"Models/LotR/isengard.obj");
@@ -1391,7 +1399,7 @@ int main()
 		//display(modelShader, ourModel, llantasModel);
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
-			GondorShield, saber, clarent, berserker, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou);
+			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative);
 
 
 
