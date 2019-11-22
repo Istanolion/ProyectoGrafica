@@ -1,7 +1,7 @@
 /*---------------------------------------------------------*/
 /*-----------------------Proyecto final--------------------*/
-/*-------------Garciarebollo Rojas Diego Iñaki-------------*/
-/*----------------Lona López Alberto Alonzo----------------*/
+/*-------------Garciarebollo Rojas Diego Iï¿½aki-------------*/
+/*----------------Lona Lï¿½pez Alberto Alonzo----------------*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
@@ -59,6 +59,7 @@ float	movX = 0.0f,
 
 //Texture
 unsigned int GandalfTexture[71];
+unsigned int HobbitWall;
 int i = 0;
 unsigned int BG_fate;
 
@@ -285,6 +286,7 @@ void LoadTextures()
 	GandalfTexture[70] = generateTextures("Gandalf/Gandalf0070.png", 1);
 
 	BG_fate = generateTextures("Models/Fate/UBW.png", 0);
+	HobbitWall = generateTextures("Models/LotR/hobbitWall.png",0);
 }
 
 void myData()
@@ -404,9 +406,13 @@ void animate(void)
 	
 }
 
-void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, Model teclado, Model muro, Model silla, 
-	Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou,
-	Model riderwpn, Model gaebolgalternative)
+void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model saber, Model excalibur2, Model gaebolg, 
+	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative
+	Model gaebolg, Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou,Model libros,Model garrafon,
+	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk)
+
+
 {
 	
 	shader.use();
@@ -415,8 +421,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setVec3("dirLight.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
 	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
-
-	//shader.setVec3("pointLight.position", lightPosition);
 	shader.setVec3("pointLight.position", glm::vec3(2.0f, 4.0f, 3.0f));
 	shader.setVec3("pointLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
 	shader.setVec3("pointLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
@@ -448,11 +452,73 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	soccer.Draw(shader);
 
-	//Shield
-	model = glm::translate(tmp, glm::vec3(-5.0f, 3.0f , 3.0f));
-	model = glm::scale(model, glm::vec3(1.0f , 1.0f , 1.0f ));
+	//Here Start all the code needed to display all LotR (Lord of the Rings) Models and Room
+	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//We draw an Uruk of Isengard (Sent By Saruman the White)
+	model = glm::translate(tmp, glm::vec3(-17.470078f, -1.6f, 2.673361f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	Uruk.Draw(shader);
+
+	//We draw the head of the Balrog from the mines of Moria (Khazad-Dum)
+	model = glm::translate(tmp, glm::vec3(-23.715996f, 2.269176f, -13.448437f));
+	shader.setMat4("model", model);
+	Balrog.Draw(shader);
+
+	//We display a Gondorian Shield
+	model = glm::translate(tmp, glm::vec3(-15.204628f, 2.064841f, -5.439735f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
 	Shield.Draw(shader);
+
+	//We Draw the model of the tower of Isengard (Home of Saruman)
+	model = glm::translate(tmp, glm::vec3(-26.888475f, -0.7f, -2.6f));
+	model = glm::scale(model, glm::vec3(1.25f, 1.25f, 1.25f));
+	shader.setMat4("model", model);
+	Isengard.Draw(shader);
+
+	//We draw the model of Minas Tirith last city/defence of Gondor 
+	model = glm::translate(tmp, glm::vec3(-25.301569f, 0.7f, -7.640053f));
+	shader.setMat4("model", model);
+	MinasTirith.Draw(shader);
+
+	/*One Ring to Rule them all,
+	 One Ring to Find them,
+	 One Ring to bring them all
+	 and in the darkness bind them*/
+	model = glm::translate(tmp, glm::vec3(-18.875118f, 0.319568f, -6.070971f));
+	shader.setMat4("model", model);
+	Ring.Draw(shader);
+
+	//Don't let sun hit them
+	model = glm::translate(tmp, glm::vec3(-24.898655f, -2.0f, 1.038841f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	Troll.Draw(shader);
+
+	//This sword was forged by ancient Elves (of the first age), it's name is Orcrist (Goblin-cleaver)
+	model = glm::translate(tmp, glm::vec3(-17.6f, 2.476336f, -9.475085f));
+	model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", model);
+	Orcrist.Draw(shader);
+
+	//This is the Sword of Bilbo and Frodo Baggins
+	model = glm::translate(tmp, glm::vec3(-15.6f, 2.640609f, -2.261619f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", model);
+	Sting.Draw(shader);
+
+	//We Draw a Hobbit door and entrance
+	model = glm::translate(tmp, glm::vec3(-32.0f, 1.0f, -5.977325f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(6.0f, 2.0f, 1.0f));
+	shader.setMat4("model", model);
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, HobbitWall);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
 
 	model = glm::mat4(1.0f);
 
@@ -1210,17 +1276,19 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setMat4("model", model);
 	extinguidor.Draw(shader);
-	/*
+	
 	//Se dibujan papeles en la mesa
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.8f, 0.0f, -11.2f));
-	model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
 	shader.setMat4("model", model);
-	libros.Draw(shader);*/
+	libros.Draw(shader);
 	
-/*	//Garrafon
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.05f, 5.9f));
+	//Garrafon
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, -2.0f, 5.5f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
-	garrafon.Draw(shader);		*/
+	garrafon.Draw(shader);		
 
 	//Padoru
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit_x, movKit_y, -15.0f));
@@ -1353,6 +1421,7 @@ int main()
 	Model mouse = ((char*)"Models/Mouse/mouse.obj");
 	Model teclado = ((char*)"Models/Teclado/keyboard.obj");
 	Model extinguidor = ((char*)"Models/Extinguidor/extinguidor.obj");
+	Model garrafon = ((char*)"Models/Garrafon/garrafon1.obj");
 	Model silla= ((char*)"Models/Silla/silla.obj");
 	Model pisomadera = ((char *)"Models/Piso/Piso.obj");
 	Model pisometal = ((char*)"Models/PisoE/PisoE.obj");
@@ -1360,6 +1429,7 @@ int main()
 	Model muro = ((char*)"Models/Muros/Muro.obj");
 	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");	
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
+	Model libros = ((char*)"Models/Libros/Books.obj");
 	
 	//Fate Models
 	Model saber = ((char*)"Models/Fate/SaberLily/SaberLily1.obj");
@@ -1374,7 +1444,17 @@ int main()
 	Model gaebolgalternative = ((char*)"Models/Fate/GaeBolgAlternative/GaeBolgAllternative.obj");
 
 	//Lord of the rings Models
-	Model GondorShield = ((char*)"Models/LotR/isengard.obj");
+	Model GondorShield = ((char*)"Models/LotR/GondorShield.obj");
+	Model Balrog = ((char*)"Models/LotR/balrog.obj");
+	Model Isengard = ((char*)"Models/LotR/isengard.obj");
+	Model MinasTirith = ((char*)"Models/LotR/MinasTirith.obj");
+	Model Ring = ((char*)"Models/LotR/OneRing.obj");
+	Model Orcrist = ((char*)"Models/LotR/Orcrist.obj");
+	Model Sting = ((char*)"Models/LotR/Sting.obj");
+	Model Troll = ((char*)"Models/LotR/troll.obj");
+	Model Uruk = ((char*)"Models/LotR/urukHai.obj");
+
+
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	// render loop
@@ -1399,7 +1479,8 @@ int main()
 		//display(modelShader, ourModel, llantasModel);
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
-			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative);
+			GondorShield, aber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon,  
+			Balrog,Isengard,MinasTirith,Ring,Orcrist,Sting,Troll,Uruk);
 
 
 
@@ -1468,6 +1549,19 @@ void my_input(GLFWwindow *window)
 		baja = false;
 
 	}
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS and !GandalfTime) {
+		printf("%ff,%ff,%ff\n",camera.Position.x,camera.Position.y,camera.Position.z);
+	}
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS and !GandalfTime) {
+		camera.Position = glm::vec3(-18.992426f, 0.883302f, -5.992909f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS and !GandalfTime) {
+		camera.Position = glm::vec3(-5.764086f, 1.497131f, 1.461394f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS and !GandalfTime) {
+		camera.Position = glm::vec3(12.672640f, 0.934741f, -5.029094f);
+	}
+	
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
