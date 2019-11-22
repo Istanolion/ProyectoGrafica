@@ -22,19 +22,19 @@
     <ClCompile Include="ProyectoFinal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="shaders\modelLoading.fs" />
     <None Include="shaders\modelLoading.vs" />
     <None Include="shaders\shader_Lights.fs" />
     <None Include="shaders\shader_Lights.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\camera.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F31A6FEC-0E59-44F9-9BA5-45F3468C62B8}</ProjectGuid>
     <RootNamespace>ProyectoGraficaVS</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
