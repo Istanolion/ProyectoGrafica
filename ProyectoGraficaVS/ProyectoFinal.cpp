@@ -408,7 +408,7 @@ void animate(void)
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
 	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, 
-	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative,Model libros,Model garrafon,
+	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative,Model libros,Model garrafon, Model proyector,
 	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk)
 
 
@@ -1282,6 +1282,13 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("model", model);
 	libros.Draw(shader);
 	
+	//Proyector
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-6.0f, 4.0f, -5.0f));
+	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.002f, 0.002f, 0.002f));
+	shader.setMat4("model", model);
+	proyector.Draw(shader);
+
 	//Garrafon
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, -2.0f, 5.5f));
 	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
@@ -1302,7 +1309,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
 	shader.setMat4("model", model);
 	saber.Draw(shader);
-
 	//Excalibur2	
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(19.0f, -2.5f, -14.0f));
 	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1344,19 +1350,17 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	kanshou.Draw(shader);
 
 	//Saber Alter
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit02_x, movKit_y, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit01_x, movKit_y, 0.0f));
 	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 	shader.setMat4("model", model);
 	saberalter.Draw(shader);
-
 	//Archer
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit01_x, movKit_y, -10.0f));
 	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 	shader.setMat4("model", model);
 	archer.Draw(shader);
-
 	//Padoru
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(movKit01_x, movKit_y, -6.0f));
 	model = glm::rotate(model, glm::radians(-movGiro_y), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1429,12 +1433,13 @@ int main()
 	Model Pizarron = ((char*)"Models/Pizarron/pizarron.obj");	
 	Model padoru = ((char*)"Models/Padoru/padoru.obj");
 	Model libros = ((char*)"Models/Libros/Books.obj");
+	Model proyector = ((char*)"Models/Proyector/Proyector.obj");
 	
 	//Fate Models
 	Model saber = ((char*)"Models/Fate/SaberLily/SaberLily1.obj");
 	Model excalibur2 = ((char*)"Models/Fate/2Excalibur/2Excalibur.obj");
 	Model gaebolg = ((char*)"Models/Fate/LancerW/GaeBolg.obj");
-	Model saberalter = ((char*)"Models/Fate/SaberAlterC/Saber.obj");
+	Model saberalter = ((char*)"Models/Fate/SaberAlterC/SaberAlter.obj");
 	Model excaliburmorgan = ((char*)"Models/Fate/SaberAlterW/ExcaliburMorgan.obj");
 	Model archer = ((char*)"Models/Fate/ArcherC/archer.obj");
 	Model byakuga = ((char*)"Models/Fate/SwordsArcher/Byakuga.obj");
@@ -1478,7 +1483,7 @@ int main()
 		//display(modelShader, ourModel, llantasModel);
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
-			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon,  
+			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon, proyector,
 			Balrog,Isengard,MinasTirith,Ring,Orcrist,Sting,Troll,Uruk);
 
 
