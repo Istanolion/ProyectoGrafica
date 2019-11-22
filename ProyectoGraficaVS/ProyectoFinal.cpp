@@ -407,9 +407,8 @@ void animate(void)
 }
 
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
-	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model saber, Model excalibur2, Model gaebolg, 
-	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative
-	Model gaebolg, Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou,Model libros,Model garrafon,
+	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, 
+	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative,Model libros,Model garrafon,
 	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk)
 
 
@@ -1479,7 +1478,7 @@ int main()
 		//display(modelShader, ourModel, llantasModel);
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
-			GondorShield, aber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon,  
+			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon,  
 			Balrog,Isengard,MinasTirith,Ring,Orcrist,Sting,Troll,Uruk);
 
 
