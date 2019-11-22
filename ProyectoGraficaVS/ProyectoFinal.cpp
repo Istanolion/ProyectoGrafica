@@ -62,7 +62,8 @@ unsigned int GandalfTexture[71];
 unsigned int HobbitWall;
 int i = 0;
 unsigned int BG_fate;
-
+glm::vec3 colordir;
+bool luz = true;
 //For model
 bool animacion = false;
 bool avanzar = false;
@@ -365,7 +366,7 @@ void animate(void)
 				saltos++;
 			}
 		}
-		if (saltos == 4) {
+		if (saltos == 2) {
 			animacion = false;
 			SoundEngine->stopAllSounds();
 		}
@@ -376,8 +377,7 @@ void animate(void)
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
 	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, 
 	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative,Model libros,Model garrafon, Model proyector,
-	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk,
-	Model UrukT,Model UrukH,Model UrukLA,Model UrukRA)
+	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk, Model UrukT,Model UrukH,Model UrukLA,Model UrukRA)
 
 
 {
@@ -385,7 +385,12 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.use();
 	shader.setVec3("viewPos", camera.Position);
 	shader.setVec3("dirLight.direction", lightDirection);
-	shader.setVec3("dirLight.ambient", glm::vec3(1.0f, 1.0f, 1.0f));
+	if (luz)
+		colordir = glm::vec3(1.0f, 1.0f, 1.0f);
+	else
+		colordir = glm::vec3(0.0f, 0.0f, 0.0f);
+	shader.setVec3("dirLight.ambient",colordir);
+
 	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
 	shader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
 	shader.setVec3("pointLight.position", glm::vec3(2.0f, 4.0f, 3.0f));
@@ -398,12 +403,13 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 
 
 
-	shader.setVec3("SpotLight.position", glm::vec3(-6.0f, 4.0f, -5.0f));
-	shader.setVec3("SpotLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setVec3("SpotLight.position", glm::vec3(-6.0f, 4.0f, -6.0f));
+	shader.setVec3("SpotLight.direction",glm::vec3(-1.0f,-2.0f,-11.0f));
+	shader.setVec3("SpotLight.ambient", glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setVec3("SpotLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setVec3("SpotLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setFloat("SpotLight.cutoff", 0.5f);
-	shader.setFloat("SpotLight.outerCutOff", 5.0f);
+	shader.setFloat("SpotLight.cutoff",cos(glm::radians( 13.0f)));
+	shader.setFloat("SpotLight.outerCutOff", cos(glm::radians(10.0f)));
 	shader.setFloat("SpotLight.constant", 1.0f);
 	shader.setFloat("SpotLight.linear", 0.9f);
 	shader.setFloat("SpotLight.quadratic", 0.032f);
@@ -1531,7 +1537,7 @@ void my_input(GLFWwindow *window)
 		SoundEngine->play2D("Musica/Padoru.mp3", GL_TRUE);
 	}
 	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
-		
+		movKit01_x = 20.0f;
 		movKit_x = -14.0f;
 		movGiro_y = 90.0f;
 		saltos = 0;
@@ -1553,6 +1559,9 @@ void my_input(GLFWwindow *window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS and !GandalfTime) {
 		camera.Position = glm::vec3(12.672640f, 0.934741f, -5.029094f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS and !GandalfTime) {
+		luz = !luz;
 	}
 	
 }
