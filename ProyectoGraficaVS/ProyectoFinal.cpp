@@ -337,15 +337,16 @@ void animate(void)
 	if (animacion) {
 		if (!avanzar && !giro && !salto && !baja) {
 			movKit_x += 0.0425f;
-			if (movKit_x >= -10.0f)
+			movKit01_x -= 0.05f;
+			if (movKit_x >= -10.0f && movKit01_x <= 18.0f)
 				giro = true;
 		}
 		else if (!avanzar && giro && !salto && !baja) {
 			movKit_x += 0.0425f;
 			movGiro_y += 20.0f;
-			if (movGiro_y >= 420.0f && movKit_x >= -3.75f) 
+			movKit01_x -= 0.05f;
+			if (movGiro_y >= 420.0f && movKit_x >= -3.75f && movKit01_x <= 4.5f) 
 				salto = true;
-			
 		}
 		else if (!avanzar && giro && salto && !baja) {
 			movKit_x += 0.0425f;
@@ -358,13 +359,13 @@ void animate(void)
 		else if (!avanzar && giro && !salto && baja) {
 			movKit_x += 0.0425f;
 			movKit_y -= 0.05f;
-			if (movKit_y <= -2.0f ) {
+			if (movKit_y <= -2.0f) {
 				baja = false;
 				salto = true;
 				saltos++;
 			}
 		}
-		if (saltos == 6) {
+		if (saltos == 4) {
 			animacion = false;
 			SoundEngine->stopAllSounds();
 		}
@@ -517,15 +518,16 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	}
 	/*
 	//FondoFate
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setMat4("model", model);
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, BG_fate);
-	glDrawArrays(GL_QUADS, 4, 4); */
-	
+	glDrawArrays(GL_QUADS, 4, 4); 
 	model = glm::mat4(1.0f);
 	shader.setMat4("model", model);
+	*/
+	
 	//Dibujo 1a mesa lado derecho
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setMat4("model", model);
 	mesa.Draw(shader);
 	//Dibujo 1er equipo computo
 	model = glm::translate(tmp, glm::vec3(-2.4f, 0.0f, -0.1f));
@@ -1204,7 +1206,7 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.2f, 1.5f, 6.0f));
 	model = glm::scale(model, glm::vec3(160.0f, 7.0f, 1.0f));
 	shader.setMat4("model", model);
-	muro.Draw(shader);
+	muro.Draw(shader); 
 
 	//Muro lateral izquierda
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-15.0f, 1.5f, -7.8f));
