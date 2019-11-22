@@ -395,6 +395,18 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setFloat("pointLight.constant", 1.0f);
 	shader.setFloat("pointLight.linear", 0.9f);
 	shader.setFloat("pointLight.quadratic", 0.032f);
+
+
+
+	shader.setVec3("SpotLight.position", glm::vec3(-6.0f, 4.0f, -5.0f));
+	shader.setVec3("SpotLight.ambient", glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setVec3("SpotLight.diffuse", glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setVec3("SpotLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setFloat("SpotLight.cutoff", 0.5f);
+	shader.setFloat("SpotLight.outerCutOff", 5.0f);
+	shader.setFloat("SpotLight.constant", 1.0f);
+	shader.setFloat("SpotLight.linear", 0.9f);
+	shader.setFloat("SpotLight.quadratic", 0.032f);
 	shader.setFloat("material_shininess", 32.0f);
 	// create transformations and Projection
 	glm::mat4 tmp = glm::mat4(1.0f); 
