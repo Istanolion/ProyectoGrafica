@@ -409,7 +409,8 @@ void animate(void)
 void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, Model pisomadera, Model pisometal, Model techo, Model extinguidor, Model mesa3, Model mouse, 
 	Model teclado, Model muro, Model silla, Model pizarron, Model padoru, Model mesaProf, Model soccer, Model Shield, Model saber, Model excalibur2, Model gaebolg, 
 	Model saberalter, Model archer, Model excaliburmorgan, Model byakuga, Model kanshou, Model riderwpn, Model gaebolgalternative,Model libros,Model garrafon, Model proyector,
-	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk)
+	Model Balrog, Model Isengard, Model MinasTirith, Model Ring, Model Orcrist, Model Sting, Model Troll, Model Uruk,
+	Model UrukT,Model UrukH,Model UrukLA,Model UrukRA)
 
 
 {
@@ -444,12 +445,6 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
-	
-	//Keyframe Animation of Ball
-	model = glm::translate(tmp, glm::vec3(-10.0f, 3.0f - posY, 3.0f));
-	model = glm::scale(model, glm::vec3(1.0f + scaleX, 1.0f + scaleY, 1.0f + scaleZ));
-	shader.setMat4("model", model);
-	soccer.Draw(shader);
 
 	//Here Start all the code needed to display all LotR (Lord of the Rings) Models and Room
 	//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -457,7 +452,10 @@ void display(Shader shader, Model cpu1, Model cpu2, Model monitor, Model mesa, M
 	model = glm::translate(tmp, glm::vec3(-17.470078f, -1.6f, 2.673361f));
 	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", model);
-	Uruk.Draw(shader);
+	UrukT.Draw(shader);
+	UrukLA.Draw(shader);
+	UrukRA.Draw(shader);
+	UrukH.Draw(shader);
 
 	//We draw the head of the Balrog from the mines of Moria (Khazad-Dum)
 	model = glm::translate(tmp, glm::vec3(-23.715996f, 2.269176f, -13.448437f));
@@ -1458,6 +1456,10 @@ int main()
 	Model Troll = ((char*)"Models/LotR/troll.obj");
 	Model Uruk = ((char*)"Models/LotR/urukHai.obj");
 
+	Model UrukLA = ((char*)"Models/LotR/urukHaiLArm.obj");
+	Model UrukRA = ((char*)"Models/LotR/urukHaiRArm.obj");
+	Model UrukH = ((char*)"Models/LotR/urukHaiHead.obj");
+	Model UrukT = ((char*)"Models/LotR/urukHaiTorso.obj");
 
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -1484,7 +1486,8 @@ int main()
 
 		display(modelShader,cpu1,cpu2,monitor,mesa, pisomadera, pisometal, techo, extinguidor, mesa3, mouse, teclado, muro, silla, Pizarron, padoru, mesaProf, soccer, 
 			GondorShield, saber, excalibur2, gaebolg, saberalter, archer, excaliburmorgan, byakuga, kanshou, riderwpn, gaebolgalternative, libros, garrafon, proyector,
-			Balrog,Isengard,MinasTirith,Ring,Orcrist,Sting,Troll,Uruk);
+			Balrog,Isengard,MinasTirith,Ring,Orcrist,Sting,Troll,Uruk,
+			UrukT,UrukH,UrukLA,UrukRA);
 
 
 
